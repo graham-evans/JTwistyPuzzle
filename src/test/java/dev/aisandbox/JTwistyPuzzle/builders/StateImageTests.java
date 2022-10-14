@@ -17,7 +17,8 @@ public class StateImageTests {
       for (int height=2;height<11;height++) {
         for (int depth=2;depth<11;depth++) {
           TwistyPuzzle puzzle = CuboidPuzzleBuilder.createCuboidPuzzle(width,height,depth, Scoring.OTGM);
-          File fout = new File("cube"+width+"x"+height+"x"+depth+"State.png");
+          File fout = new File("target/puzzleStateID/cube"+width+"x"+height+"x"+depth+"State.png");
+          fout.getParentFile().mkdirs();
           ImageIO.write(puzzle.visualiseIDs(),"PNG",fout);
           assertTrue(fout.isFile());
         }
