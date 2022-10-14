@@ -1,9 +1,10 @@
 package dev.aisandbox.JTwistyPuzzle.builders;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dev.aisandbox.JTwistyPuzzle.TwistyPuzzle;
-import dev.aisandbox.JTwistyPuzzle.builders.CuboidPuzzle.Scoring;
+import dev.aisandbox.JTwistyPuzzle.builders.CuboidPuzzleBuilder.Scoring;
 import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
@@ -14,23 +15,24 @@ import java.io.IOException;
 public class CuboidTest {
 
   @Test
-  public void constructorInitialisationTest() {
-    TwistyPuzzle cube = new CuboidPuzzle(3,3,3,Scoring.OTGM);
-    assertTrue(cube.isSolved());
-
+  public void constructorNameTest() {
+    TwistyPuzzle cube = CuboidPuzzleBuilder.createCuboidPuzzle(3,3,3,Scoring.OTGM);
+    assertEquals("3x3x3 Cube (OTGM)",cube.getPuzzleName());
   }
 
   @Test
   public void solvedCubeTest() {
-    TwistyPuzzle cube = CuboidPuzzle.builder().depth(3).height(3).width(3).build();
+    TwistyPuzzle cube = CuboidPuzzleBuilder.createCuboidPuzzle(3,3,3,Scoring.OTGM);
     assertTrue(cube.isSolved());
   }
 
   @Test
   public void drawStartTest() throws IOException {
-    TwistyPuzzle cube = CuboidPuzzle.builder().depth(3).height(3).width(3).build();
+    TwistyPuzzle cube = CuboidPuzzleBuilder.createCuboidPuzzle(3,3,3,Scoring.OTGM);
     BufferedImage image = cube.visualise();
-    ImageIO.write(image,"png",new File("cube3x3x3.png"));
+    File outputFile = new File("cube3x3x3.png");
+    ImageIO.write(image,"png",outputFile);
+    assertTrue(outputFile.isFile());
   }
 
 }
